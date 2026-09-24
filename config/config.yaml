@@ -1,0 +1,20 @@
+# Runtime parameters — tunable behavior, loaded via self.config at construction time.
+# Static identity/manifest fields belong in config/agent.yaml, not here.
+# Never put secrets here — use ctx.secrets.require() at runtime.
+
+max_retry: 3
+memory_enabled: false
+timeout_s: 60
+
+# Statistical price-band estimation window (moving average + Bollinger Bands
+# lookback, in price-history points) — PriceForecastNode. Longer windows
+# smooth out short-term volatility; shorter windows react faster to recent
+# price moves. See docs/02_design.md and docs/07_operation_guide.md.
+forecast_window: 20
+
+# Risk appetite for StrategyRecommendationNode's buy_now/defer/partial_hedge
+# ranking — conservative (minimize worst-case cost) | moderate (balance
+# expected + worst-case cost) | aggressive (minimize expected cost, accept
+# more risk). Does not change which 3 options are computed, only their
+# recommended order.
+risk_appetite: moderate
